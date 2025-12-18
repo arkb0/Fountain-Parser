@@ -1,0 +1,350 @@
+/* ==================================================
+   Screenplay.css
+   ================================================== */
+/* Style sheet for screenplay styling */
+
+/* ---- CSS Variables ---- */
+:root {
+  --font-body: "Courier Prime", "Courier New", Courier, monospace;
+  --font-title: "Courier Prime", "Courier New", Courier, monospace;
+
+  --page-width: 8.5in;
+  --page-height: 11in;
+
+  /* Standard screenplay margins */
+  --margin-left: 1.5in;
+  --margin-right: 1in;
+  --margin-top: 1in;
+  --margin-bottom: 1in;
+
+  /* Final Draft has ~ 1.2 */
+  --line-height: 1.4;
+  --font-size: 12pt;
+
+  --color-text: #111;
+  --color-muted: #666;
+}
+
+/* ---- Global and Layout ---- */
+html, body {
+  height: 100%;
+  background: #f4f4f4;
+  color: var(--color-text);
+}
+
+.screenplay,
+.title-page {
+  font-family: var(--font-body);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  background: #fff;
+  width: var(--page-width);
+  min-height: var(--page-height);
+  margin: 1rem auto;
+  padding-top: var(--margin-top);
+  padding-bottom: var(--margin-bottom);
+  /* Horizontal margins to emulate the screenplay layout */
+  padding-left: var(--margin-left);
+  padding-right: var(--margin-right);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+/* Keep long words from breaking ugly */
+.screenplay * {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* ---- Printing ---- */
+@page {
+  size: var(--page-width) var(--page-height);
+  margin: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  p {
+    /* At least 2 lines stay together at the bottom of a page */
+    orphans: 2;
+    /* At least 2 lines appear at the top of a new page */
+    widows: 2;
+  }
+
+  .screenplay,
+  .title-page {
+    box-shadow: none;
+    margin: 0;
+    width: auto;
+    min-height: auto;
+    padding: 0;
+  }
+
+  .page-break {
+    break-before: page;
+  }
+}
+
+/* =========================
+   Title Page
+   ========================= */
+
+.title-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25in;
+}
+
+.title-page .tp-field {
+  display: block;
+}
+
+/* Keys are usually not shown on the title page */
+.title-page .tp-key {
+  display: none;
+}
+
+.title-page .tp-value {
+  white-space: pre-wrap;
+}
+
+/* Common title page patterns */
+.title-page .tp-field.title .tp-value {
+  font-family: var(--font-title);
+  font-size: 24pt;
+  text-align: center;
+  margin-top: 2in;
+  margin-bottom: 0.2in;
+}
+
+.title-page .tp-field.credit .tp-value {
+  text-align: center;
+  color: var(--color-muted);
+  margin-bottom: 0.05in;
+}
+
+.title-page .tp-field.author .tp-value {
+  text-align: center;
+  font-size: 12pt;
+}
+
+/* Optional other fields (contact, draft date, etc.) */
+.title-page .tp-field.contact .tp-value,
+.title-page .tp-field.draft .tp-value {
+  font-size: 10pt;
+  color: var(--color-muted);
+  text-align: center;
+}
+   
+/* =========================
+   Core Screenplay Blocks
+   ========================= */
+
+/* Spacing between blocks */
+.screenplay > * {
+  margin: 0;
+  padding: 0;
+}
+
+/* Blank lines yield vertical rhythm */
+.blank-line {
+  height: 0.2in;
+}
+
+/* Scene headings (sluglines) */
+.scene-heading {
+  text-transform: uppercase;
+  margin-top: 0.15in;
+  margin-bottom: 0.06in;
+  /* Sluglines are left aligned */
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+/* Optional scene numbers displayed at the end or the start */
+.scene-heading .scene-number {
+  color: var(--color-muted);
+}
+
+/* Action paragraphs */
+.action {
+  margin-bottom: 0.06in;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+/* Centred text (e.g., > TEXT <) */
+.centred {
+  text-align: center;
+  margin: 0.06in 0;
+}
+
+/* Lyrics (tilde lines) */
+.lyric {
+  text-align: left;
+  margin: 0.02in 0;
+  padding-left: 0.2in;
+  font-style: italic;
+}
+
+/* Character names */
+.character {
+  text-transform: uppercase;
+  margin-top: 0.12in;
+  /* Character names are centred-ish via indentation */
+  text-align: left;
+  /* The typical indent for a character cue */
+  padding-left: 2.2in;
+}
+
+/* Optional extensions (O.S., V.O.) */
+.character .extension {
+  text-transform: uppercase;
+  margin-left: 0.15in;
+  color: var(--color-muted);
+}
+
+/* Parentheticals under the character or inside dialogue */
+.parenthetical {
+  text-align: left;
+  /* Slightly less than the dialogue indent */
+  padding-left: 2in;
+  margin: 0.02in 0;
+  font-style: italic;
+}
+
+/* Dialogue lines */
+.dialogue {
+  text-align: left;
+  /* Dialogue indent */
+  padding-left: 1.6in;
+  /* Right indent to keep ~ 35 characters per line */
+  padding-right: 1.2in;
+  margin-bottom: 0.03in;
+  white-space: pre-wrap;
+}
+
+/* Transitions (e.g., CUT TO:, FADE OUT:) */
+.transition {
+  text-transform: uppercase;
+  text-align: right;
+  margin-bottom: 0.12in;
+  /* That classic right-justified feel */
+  padding-right: 0.5in;
+  letter-spacing: 0.5px;
+}
+
+/* Page breaks */
+.page-break {
+  border: 0;
+  height: 0;
+  margin: 0.2in 0;
+}
+
+/* Notes, sections, synopses are writer-only; hide by default */
+.note, .section, .synopsis, .boneyard {
+  display: none;
+}
+
+/* =========================
+   Dual Dialogue
+   ========================= */
+
+.dual-dialogue {
+  align-items: start;
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.4in;
+  margin-top: 0.12in;
+  margin-bottom: 0.12in;
+}
+
+/* Left column */
+.dual-dialogue .dual-left .character,
+.dual-dialogue .dual-left .parenthetical,
+.dual-dialogue .dual-left .dialogue {
+  /* Local padding within the column */
+  padding-left: 0.2in;
+  padding-right: 0.1in;
+  text-align: left;
+  margin: 0.03in 0;
+}
+
+/* Right column */
+.dual-dialogue .dual-right .character,
+.dual-dialogue .dual-right .parenthetical,
+.dual-dialogue .dual-right .dialogue {
+  /* Local padding within the column */
+  padding-left: 0.2in;
+  padding-right: 0.1in;
+  text-align: left;
+  margin: 0.03in 0;  
+}
+
+/* Tighten the character cues when displaying two columns */
+.dual-dialogue .character {
+  text-transform: uppercase;
+  /* The column layout handles centring */
+  padding-left: 0;
+  margin-top: 0.06in;
+}
+
+/* Optional visual tweak to align baselines */
+.dual-dialogue .parenthetical {
+  font-style: italic;
+}
+
+/* =========================
+   Inline Emphasis
+             within RichText
+   ========================= */
+/* 
+   Map Inline emphasis tags to spans in HTML during render:
+   TextNode -> Plain text
+   EmItalic -> <span class="em-italic">
+   EmBold -> <span class="em-bold">
+   EmBoldItalics -> <span class="em-bold-italic">
+   EmUnderline -> <span class="em-underline">
+   EmEscaped -> Plain text
+   EmNoteInline -> <span class="em-note-inline"> (hidden by default) 
+*/
+
+.em-italic { font-style: italic; }
+.em-bold { font-weight: 700; }
+.em-bold-italic { font-style: italic; font-weight: 700; }
+.em-underline { text-decoration: underline; }
+
+/* Inline notes hidden unless debugging */
+.em-note-inline {
+  display: none;
+  color: #3a3;
+}
+
+/* =========================
+   Small-Screen Adjustments
+   ========================= */
+
+@media (max-width: 900px) {
+  .screenplay,
+  .title-page {
+    width: 100%;
+    min-height: auto;
+    margin: 0;
+    padding: 1rem;
+    box-shadow: none;
+  }
+
+  /* Preserve the hierarchy but relax the indents on a mobile */
+  .character { padding-left: 1.2rem; }
+  .parenthetical { padding-left: 1rem; }
+  .dialogue { padding-left: 0.8rem; padding-right: 0.8rem; }
+  .transition { padding-right: 0; }
+  .dual-dialogue {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
