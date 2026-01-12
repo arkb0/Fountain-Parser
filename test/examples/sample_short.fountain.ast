@@ -1,0 +1,7 @@
+TitlePage {tpFields = [TitleField {tfKey = "Title", tfValues = [[TextNode "My Short Film"]]},TitleField {tfKey = "Credit", tfValues = [[TextNode "Written by"]]},TitleField {tfKey = "Author", tfValues = [[TextNode "Jane Doe"]]}]}
+FETransition (Transition {trText = "FADE IN:", trForcedGt = False})
+FESceneHeading (SceneHeading {shText = "INT. LIVING ROOM - DAY", shForced = False, shNumber = Nothing})
+FEDialogue (DialogueBlock {dlgSpeaker = Character {charName = "JOHN", charForcedAt = False, charExtension = Nothing, charDual = False}, dlgLines = [DialogueText [TextNode "Hello there."]]})
+FEAction (Action {actionLines = [[TextNode "MARY (20s) enters the room."]], actionForcedBang = False})
+FEDualDialogue (DualDialogue {ddLeft = DialogueBlock {dlgSpeaker = Character {charName = "MARY", charForcedAt = False, charExtension = Nothing, charDual = False}, dlgLines = [DialogueText [TextNode "Hi John."]]}, ddRight = DialogueBlock {dlgSpeaker = Character {charName = "HENRY", charForcedAt = False, charExtension = Nothing, charDual = True}, dlgLines = [DialogueText [TextNode "Heya y'alls."]]}})
+FETransition (Transition {trText = "FADE OUT:", trForcedGt = True})
